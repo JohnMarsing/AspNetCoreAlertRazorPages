@@ -1,30 +1,86 @@
-# AspNetCoreAlertRP
+# Asp.Net Core 2.1 Alert Razor Pages
 
-I had used this before in numerous .Net 4.6 Framework apps using a BaseController class
+I had used _Alerts_ before in numerous .Net 4.6 Framework web apps and wanted to do the same in Core 2.0 while leveraging all the cool new stuff like **Razor Pages**, **DI**, **Services** and **View Components**.  In the past, I had used the technique developed by James Chambers [see)[http://jameschambers.com/2014/06/day-14-bootstrap-alerts-and-mvc-framework-tempdata/] which was part of his **Bootstrapping the MVC Framework MVC** series of blogs.  In that solution he used a BaseController class for the code and a shared partial view.  It worked well but things changed in 2.0 such that it quit working.
 
-Asp.Net Core 2.1 Web App Razor Pages that is an attempt to use James Chambers's alert services he created in a ASP.Net Monsters Video.
-It was his solution to make Bootstrap Alerts that had been working in MVC working in Core.
+# ASP.NET Monsters to the rescue
+In Episode #115: **Creating Bootstrap Alerts with the ASP.NET Core MVC Framework** [YouTube](https://www.youtube.com/watch?v=Z8RstrIaeFA) James walked through an upgrage to **Alerts** and except for one problem (at least for me it was) it doesn't do **RedirectToPage**.  Maybe I did something wrong I don't know, regardless I thought it would be usefull to have an example to work from (plus it will cause me to create more OSS / GitHub projects).
 
-I couldn't get the services solution that James created to work but I could get it to work using the BaseController class and code written byt Joshua C Garrison
-Also I wanted an example of this written in **Razor Pages** (not MVC).
 
-## Resources
-- Joshua C Garrison [@JoshuaGarrison7](https://twitter.com/JoshuaGarrison7) wrote a blog [Complex Objects and TempData using .NET Core 2](https://dotnetevolved.com/2017/08/complex-objects-and-tempdata-using-net-core-2/)
-- ASP.NET Monsters # 115: Creating Bootstrap Alerts with the ASP.NET Core MVC Framework, [YouTube](https://www.youtube.com/watch?v=Z8RstrIaeFA)
+# No RedirectToPage - Works Fine
+- Pages\AlertServiceRedirectTest.cshtml.cs
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using AspNetCoreAlerRP.Web.Core.PageAlerts;
+using Microsoft.Extensions.Logging;
 
-## Other Stuff
-I'm new to using GitHub and so these are notes to help me do this in the future
+namespace AspNetCoreAlerRP.Web.Pages.Home
+{
+  public class AlertServiceTestModel : PageModel
+  {
+    public IPageAlertService _alert;
+    private readonly ILogger log;
+    public AlertServiceTestModel(IPageAlertService alertService, ILogger<AlertServiceTestModel> logger) 
+    {
+      log = logger;
+      _alert = alertService;
+    }
 
-### Tools 
-- Cmder (console emulator) [install](http://cmder.net/) and references
-- VS Code Integrated Terminal integration [docs](https://code.visualstudio.com/docs/editor/integrated-terminal#_can-i-use-cmders-shell-with-the-terminal-on-windows)
+    public IActionResult OnGet()
+    {
+      try
+      {
+        _alert.Information("Inside AboutModel");
+        _alert.Warning("After some information, a warning", true);
+        _alert.Danger("Then Danger", true);  //
+        _alert.Success("Success!!! --> It's my <b>middle</b> name.");
+      }
+      catch (System.Exception ex)
+      {
+        log.LogDebug(ex, nameof(OnGet));
+        return RedirectToPage("/Error");
+      }
+      return Page();
+    }
+  }
 
-### dotnet CLI
-- [ref](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet?tabs=netcore21)
-
-### Managing a Repository Structure [blog](https://odetocode.com/blogs/scott/archive/2018/09/06/net-core-opinion-2-ndash-managing-a-repository-structure.aspx)
+}
 ```
-dotnet new sln # to create a sln file
-dotnet new [template_name] -o [output path] # to create a project
-dotnet sln [sln_name] add [csproj_name] # to add a project to a solutition.
+
+# RedirectToPage - causes exception
+- Pages\AlertServiceRedirectTest.cshtml.cs
+```csharp
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using AspNetCoreAlerRP.Web.Core.PageAlerts;
+
+namespace AspNetCoreAlerRP.Web.Pages
+{
+  public class AlertServiceRedirectTestModel : PageModel
+  {
+    public IPageAlertService _alert;
+    
+    public AlertServiceRedirectTestModel(IPageAlertService alertService)
+    {
+      _alert = alertService;
+    }
+
+    public IActionResult OnGet()
+    {
+      _alert.Information("Inside AlertServiceRedirectTestModel.  Redirect to About");
+      return RedirectToPage("/About"); // THIS WILL THROW AN EXCEPTION
+    }
+  }
+}
+
+/*
+The RedirectToPage("/About"); after an _alert has been inserted causes an unhandled exception
+ - InvalidOperationException: 
+    The 'Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.TempDataSerializer' cannot serialize an object of type 
+    'AspNetCoreAlerRP.Web.Core.PageAlerts.PageAlert'.
+ 
+  - Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.TempDataSerializer.EnsureObjectCanBeSerialized(object item) 
+*/
+
 ```
+
