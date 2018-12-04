@@ -7,8 +7,8 @@ In Episode #115: **Creating Bootstrap Alerts with the ASP.NET Core MVC Framework
 
 # Notes from the Video re. 2.1, TempData and serialization
 - Here is what James had to say at [10:38](https://youtu.be/Z8RstrIaeFA?t=638)
-> In 2.1, the temp data behind the scenes, the tempdata actually serialized the objects for me…when core came out it only accepts strings as eligible entries for the dictionary (which was string to string).  Previously we had a string, object dictionary so we could put whatever we wanted in there.  In version 1.x of Core, the object had to serialized the least to JSON and  de-serialize it on the way out, as of 2.1 we no longer have to do that
-- The error message I get would indicate that this still is a problem at least when doing a redirect
+> Returning to 2.1, the tempdata will serialized the objects for me.  When core came out it only accepts strings as eligible entries for the dictionary (which was string to string).  Previously (before core) we had a string, object dictionary so we could put whatever we wanted in there.  In version 1.x of Core, the object had to serialize the list to JSON and  de-serialize it on the way out.  As of 2.1 we no longer have to do that.
+- The error message I get would indicate that this still is a problem at least when doing a `RredirectToPage();`
 
 # No RedirectToPage - Works Fine
 - Pages\AlertServiceRedirectTest.cshtml.cs
