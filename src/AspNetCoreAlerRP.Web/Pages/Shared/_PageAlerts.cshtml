@@ -1,0 +1,26 @@
+﻿@using AspNetCoreAlerRP.Web.Core.PageAlerts
+
+@{
+	var alerts = TempData.ContainsKey(PageAlert.TempDataKey)
+			? (List<PageAlert>)TempData[PageAlert.TempDataKey]
+			: new List<PageAlert>();
+}
+
+@{
+	foreach (var alert in alerts)
+	{
+		var dismissableClass = alert.Dismissable ? "alert-dismissable" : null;
+		<div class="row">
+			<div class="col-xs-10">
+				<div class="alert alert-@alert.AlertStyle @dismissableClass">
+					@if (alert.Dismissable)
+					{
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+					}
+					@Html.Raw(alert.Message)
+				</div>
+			</div>
+			<div class="col-xs-2"></div>
+		</div>
+	}
+}
