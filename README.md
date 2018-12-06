@@ -15,7 +15,7 @@ In Episode #115: **Creating Bootstrap Alerts with the ASP.NET Core MVC Framework
 ```csharp
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AspNetCoreAlerRP.Web.Core.PageAlerts;
+using AspNetCoreAlerRP.Web.Core.Alerts;
 using Microsoft.Extensions.Logging;
 
 namespace AspNetCoreAlerRP.Web.Pages.Home
@@ -58,7 +58,7 @@ namespace AspNetCoreAlerRP.Web.Pages.Home
 ```csharp
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AspNetCoreAlerRP.Web.Core.PageAlerts;
+using AspNetCoreAlerRP.Web.Core.Alerts;
 
 namespace AspNetCoreAlerRP.Web.Pages
 {
@@ -83,7 +83,7 @@ namespace AspNetCoreAlerRP.Web.Pages
 The RedirectToPage("/About"); after an _alert has been inserted causes an unhandled exception
  - InvalidOperationException: 
     The 'Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.TempDataSerializer' cannot serialize an object of type 
-    'AspNetCoreAlerRP.Web.Core.PageAlerts.PageAlert'.
+    'AspNetCoreAlerRP.Web.Core.Alerts.PageAlert'.
  
   - Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.TempDataSerializer.EnsureObjectCanBeSerialized(object item) 
 */
