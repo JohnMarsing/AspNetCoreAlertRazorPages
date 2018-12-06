@@ -1,6 +1,6 @@
-﻿namespace AspNetCoreAlerRP.Web.Core.PageAlerts
+﻿namespace AspNetCoreAlerRP.Web.Core.Alerts
 {
-	public class PageAlert
+	public class Alert
 	{
 		public const string TempDataKey = "TempDataAlerts";
 
@@ -9,7 +9,7 @@
 		public bool Dismissable { get; set; }
 	}
 
-	public static class PageAlertStyles
+	public static class AlertStyles
 	{
 		public const string Success = "success";
 		public const string Information = "info";

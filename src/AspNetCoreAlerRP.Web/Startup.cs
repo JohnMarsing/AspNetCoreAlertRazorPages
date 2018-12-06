@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AspNetCoreAlerRP.Web.Core.PageAlerts;
+using AspNetCoreAlerRP.Web.Core.Alerts;
 
 namespace AspNetCoreAlerRP.Web
 {
@@ -25,14 +25,14 @@ namespace AspNetCoreAlerRP.Web
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 
-			services.AddHttpContextAccessor();   // This is required for PageAlerts
-			services.AddScoped<IPageAlertService, PageAlertService>();   // This is required for PageAlerts, not sure if the interface is necessary
+			services.AddHttpContextAccessor();   // This is required for Alerts
+			services.AddScoped<IAlertService, AlertService>();   // This is required for Alerts, not sure if the interface is necessary
 
 			services.AddMvc()
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
 				.AddSessionStateTempDataProvider();
 
-			services.AddSession();  // This is required for PageAlerts
+			services.AddSession();  // This is required for Alerts
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)

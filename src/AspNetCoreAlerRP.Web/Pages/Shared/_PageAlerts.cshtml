@@ -1,9 +1,9 @@
-﻿@using AspNetCoreAlerRP.Web.Core.PageAlerts
+﻿@using AspNetCoreAlerRP.Web.Core.Alerts
 
 @{
-	var alerts = TempData.ContainsKey(PageAlert.TempDataKey)
-			? (List<PageAlert>)TempData[PageAlert.TempDataKey]
-			: new List<PageAlert>();
+	var alerts = TempData.ContainsKey(Alert.TempDataKey)
+			? (List<Alert>)TempData[Alert.TempDataKey]
+			: new List<Alert>();
 }
 
 @{

@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AspNetCoreAlerRP.Web.Core.PageAlerts;
+using AspNetCoreAlerRP.Web.Core.Alerts;
 using Microsoft.Extensions.Logging;
 
 namespace AspNetCoreAlerRP.Web.Pages.Home
 {
 	public class AlertServiceTestModel : PageModel
 	{
-		public IPageAlertService _alert;
+		public IAlertService _alert;
 		private readonly ILogger log;
-		public AlertServiceTestModel(IPageAlertService alertService, ILogger<AlertServiceTestModel> logger) 
+		public AlertServiceTestModel(IAlertService alertService, ILogger<AlertServiceTestModel> logger) 
 		{
 			log = logger;
 			_alert = alertService;

@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using AspNetCoreAlerRP.Web.Core.PageAlerts;
+using AspNetCoreAlerRP.Web.Core.Alerts;
 
 namespace AspNetCoreAlerRP.Web.Pages
 {
 	public class AlertServiceRedirectTestModel : PageModel
 	{
-		public IPageAlertService _alert;
+		public IAlertService _alert;
 		
-		public AlertServiceRedirectTestModel(IPageAlertService alertService)
+		public AlertServiceRedirectTestModel(IAlertService alertService)
 		{
 			_alert = alertService;
 		}
@@ -25,7 +25,7 @@ namespace AspNetCoreAlerRP.Web.Pages
 The RedirectToPage("/About"); after an _alert has been inserted causes an unhandled exception
  - InvalidOperationException: 
 		The 'Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.TempDataSerializer' cannot serialize an object of type 
-		'AspNetCoreAlerRP.Web.Core.PageAlerts.PageAlert'.
+		'AspNetCoreAlerRP.Web.Core.Alerts.Alert'.
  
 	- Microsoft.AspNetCore.Mvc.ViewFeatures.Internal.TempDataSerializer.EnsureObjectCanBeSerialized(object item) 
 */

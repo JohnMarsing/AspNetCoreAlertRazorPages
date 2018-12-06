@@ -1,6 +1,6 @@
-﻿namespace AspNetCoreAlerRP.Web.Core.PageAlerts
+﻿namespace AspNetCoreAlerRP.Web.Core.Alerts
 {
-	public interface IPageAlertService
+	public interface IAlertService
 	{
 		void Danger(string message, bool dismissable = true);
 		void Information(string message, bool dismissable = true);
